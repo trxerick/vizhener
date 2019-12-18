@@ -47,39 +47,55 @@ int main()
                         } else {
                             puts("Ошибка! Для выбора опции меню можно использовать только цифры 1 и 2");
                         }
-
-                        puts("\nЛог программы:");
-
-                        if(fclose(key_ptr) == EOF){
-                            printf("Ошибка во время закрытия файла key.txt!");
-                        } else {
-                            printf("\nФайл key.txt успешно закрыт \n");
-                        }
-                        if(fclose(text_ptr) == EOF){
-                            printf("Ошибка во время закрытия файла input.txt\n");
-                        } else {
-                            printf("Файл input.txt успешно закрыт!\n");
-                        }
-                        if(fclose(result_ptr) == EOF){
-                            printf("Ошибка во время закрытия файла output.txt\n");
-                        } else {
-                            printf("Файл output.txt успешно закрыт!\n");
-                        }
-                        printf("\nНажмите ENTER, чтобы закончить работу программы");
-                        getchar();
-                        getchar();
                         free(text);
                         free(key);
                         text = NULL;
+                        key = NULL;
+                    } else {
+                        puts("Произошла ошибка при выделении памяти для ключа!");
+                        if(text != NULL){
+                            free(text);
+                            text = NULL;
+                        }
+                    }
+                } else {
+                    puts("Произошла ошибка при выделении памяти для текста");
+                    if(key != NULL){
+                        free(key);
                         key = NULL;
                     }
                 }
         } else {
             puts("Произошла ошибка при попытке выделить память для текста!");
+            if(key != NULL){
+                free(key);
+                key = NULL;
+            }
         }
         } else {
             puts("Произошла ошибка при попытке выделить память для ключа!");
         }
+                    puts("\nЛог программы:");
+
+                    if(fclose(key_ptr) == EOF){
+                            printf("Ошибка во время закрытия файла key.txt!");
+                    } else {
+                        printf("\nФайл key.txt успешно закрыт \n");
+                    }
+                    if(fclose(text_ptr) == EOF){
+                        printf("Ошибка во время закрытия файла input.txt\n");
+                    } else {
+                                printf("Файл input.txt успешно закрыт!\n");
+                    }
+                    if(fclose(result_ptr) == EOF){
+                        printf("Ошибка во время закрытия файла output.txt\n");
+                    } else {
+                        printf("Файл output.txt успешно закрыт!\n");
+                    }
+                    printf("\nНажмите ENTER, чтобы закончить работу программы");
+                    getchar();
+                    getchar();
+
     } else{
         puts("Произошла ошибка во время открытия файла!");
     }
@@ -154,7 +170,6 @@ char* Read_key_from_file(FILE* key_ptr, char* key, char* text ,int key_size , in
                  key_size*=2;
 
                 if((key = realloc(key ,key_size*sizeof(char))) == NULL){
-                    puts("Ошибка во времени выделения памяти для считывания ключа!");
                     flag = 0;
                  }
             }
@@ -172,14 +187,14 @@ char* Read_key_from_file(FILE* key_ptr, char* key, char* text ,int key_size , in
 
 char* Read_text_from_file(FILE* text_ptr, char* text , int text_size)
 {
-    int symb , flag = 1,text_length = 0, i =0,tmp = 0;
+    int symb , flag = 1,text_length = 0, i =0,tmp = 0, count = 0;
     while( ((symb = fgetc(text_ptr) ) != EOF ) && (flag != 0)){ 
                    if(((isalpha(symb) != 0) || ((int)symb == 10)) || ((int)symb == 32)) {
+                       count++;
                         if(text_length == text_size){
                             text_size*=2;
-                            text = (char*)realloc(text , text_size*sizeof(char));
+                            text = (char*)realloc(text ,text_size*sizeof(char));
                             if(text == NULL){
-                                puts("Произошла ошибка при выделении памяти для считывания текста!");
                                 flag = 0;
                             }
                         }
@@ -198,7 +213,7 @@ char* Read_text_from_file(FILE* text_ptr, char* text , int text_size)
                 }
 
             if(flag != 0){
-                text = (char*)realloc(text, text_length*sizeof(char));
+                text = (char*)realloc(text,text_length*sizeof(char));
             }
         return text;
 }
