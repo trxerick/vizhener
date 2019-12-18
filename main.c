@@ -65,6 +65,9 @@ int main()
                         } else {
                             printf("Файл output.txt успешно закрыт!\n");
                         }
+                        printf("\nНажмите ENTER, чтобы закончить работу программы");
+                        getchar();
+                        getchar();
                         free(text);
                         free(key);
                         text = NULL;
