@@ -19,7 +19,7 @@ int main()
     char* key = NULL;
     char* text = NULL;
     int i = 0,key_length,key_size = 1,text_size = 1,text_length = 0,choice;
-    if((((key_ptr = fopen("key" , "r")) != NULL) && ((text_ptr = fopen("input" , "r")) != NULL) &&((result_ptr = fopen("output" , "w"))))){
+    if((((key_ptr = fopen("key.txt" , "r")) != NULL) && ((text_ptr = fopen("input.txt" , "r")) != NULL) &&((result_ptr = fopen("output.txt" , "w"))))){
        
         setlocale( LC_ALL,"Russian" );
 
