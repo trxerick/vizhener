@@ -25,11 +25,8 @@ int main()
 
         if((key =(char*)malloc(key_size * sizeof(char))) != NULL){   // Выделение памяти под ключ     
             if( (text = (char*)malloc(text_size * sizeof(char))) != NULL){ // Выделение памяти под текст
-
-                printf("Text length = %d" , text_length);
+                
                 text = Read_text_from_file(text_ptr , text, text_size , &text_length);
-
-                printf("Text length = %d" , text_length);
 
                 if(text != NULL){ // Если текст из файл считан полность, то продолжаем работать
                     key = Read_key_from_file(key_ptr , key , text ,key_size , text_length); // Считываем ключ из файла
